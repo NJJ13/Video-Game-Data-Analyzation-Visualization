@@ -2,7 +2,6 @@ import os
 
 from flask import Flask
 
-
 def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
@@ -18,6 +17,10 @@ def create_app():
     from . import sample
     app.register_blueprint(sample.bp)
     # app.add_url_rule('/', endpoint='index')
+
+    from . import game
+    app.register_blueprint(game.bp)
+
 
     @app.route('/hello')
     def hello():
