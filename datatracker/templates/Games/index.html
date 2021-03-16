@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% for game in games %}
+        <div>
+            <h1>Name: {{ game.name }}</h1>
+        </div>
+    {% endfor %}
+
+{% endblock %}
