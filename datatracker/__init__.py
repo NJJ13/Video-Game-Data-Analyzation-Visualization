@@ -23,4 +23,8 @@ def create_app():
     def hello():
         return 'Hello, World!'
 
+    from . import games
+    app.register_blueprint(games.bp)
+
     return app
+
