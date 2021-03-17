@@ -3,8 +3,6 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 import requests, json
 from types import SimpleNamespace
 
-from .models.game import Game
-
 bp = Blueprint('games', __name__)
 
 
