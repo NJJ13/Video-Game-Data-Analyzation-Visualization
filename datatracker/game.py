@@ -8,39 +8,22 @@ from .models.game import Game
 bp = Blueprint('games', __name__)
 
 
-@bp.route('/games', methods=['GET'])
+@bp.route('/games', methods=('GET', 'POST'))
 def display_games():
-    response = requests.get('https://api.dccresource.com/api/games')
-    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-    return render_template('games/index.html', games=games)
-
-
-@bp.route('/games/search', methods=('GET', 'POST'))
-def search_games():
-    if request.method == 'POST':
-        id = request.form['_id']
-        error = None
-
-        if not id:
-            error = 'You must enter an ID'
-
-        if error is not None:
-            flash(error)
-        elif request.form['_id'] != "":
-            return redirect(url_for('games.game_details', id=id))
-        else:
-            return render_template('games/search.html', id=id)
-
+    if request.method == 'GET':
+        return render_template('games/index.html')
     else:
-        return render_template('games/search.html', id="")
+        api_result = requests.get('https://api.dccresource.com/api/games')
+        games = api_result.json()
+        chosen_game = request.form['title']
+        search_results = []
+        for title in games:
+            if title['name'].lower() == chosen_game.lower():
+                search_results.append(title)
+
+            if title['name'].lower().find(chosen_game) > -1:
+                search_results.append(title)
+        return render_template('games/index.html', title=search_results)
 
 
-@bp.route('/games/<id>', methods=['GET'])
-def game_details(id):
-    response = requests.get('https://api.dccresource.com/api/games')
-    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-    for game in games:
-        if game._id == id:
-            found_game = game
-    return render_template('games/details.html', found_game=found_game)
 
