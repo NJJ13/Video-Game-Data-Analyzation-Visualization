@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div>
+            <h1>Name: {{ found_game.name }}</h1>
+        </div>
+        <div>
+            <h1>Rank: {{ found_game.rank }}</h1>
+        </div>
+        <div>
+            <h1>Platform: {{ found_game.platform }}</h1>
+        </div>
+        <div>
+            <h1>Year: {{ found_game.year }}</h1>
+        </div>
+        <div>
+            <h1>Publisher: {{ found_game.publisher }}</h1>
+        </div>
+        <div>
+            <h1>Global Sales: {{ found_game.globalSales }}</h1>
+        </div>
+{% endblock %}
