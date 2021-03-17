@@ -46,7 +46,7 @@ def game_details(id):
     return render_template('games/details.html', found_game=found_game)
 
 
-@bp.route('/games/<name>', methods=['GET'])
+@bp.route('/game/<name>', methods=['GET'])
 def console_breakdown(name):
     response = requests.get('https://api.dccresource.com/api/games')
     games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))

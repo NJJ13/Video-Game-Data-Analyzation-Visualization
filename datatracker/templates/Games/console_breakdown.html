@@ -17,19 +17,18 @@
 
        {% for input in cross_platform_game %}
        <tr>
-           <td>{{input['name']}}</a></td>
+           <td>{{input['name']}}</td>
            <td>{{input['year']}}</td>
            <td>{{input['publisher']}}</td>
            <td>{{input['genre']}}</td>
            <td>{{input['platform']}}</td>
-           <td>naSales</td>
-           <td>euSales</td>
-           <td>jpSales</td>
-           <td>otherSales</td>
-           <td>globalSales</td>
+           <td>{{input['naSales']}}</td>
+           <td>{{input['euSales']}}</td>
+           <td>{{input['jpSales']}}</td>
+           <td>{{input['otherSales']}}</td>
+           <td>{{input['globalSales']}}</td>
        </tr>
        {% endfor %}
 </table>
-{% endif %}
 
 {% endblock %}
