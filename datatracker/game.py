@@ -1,8 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-
 import requests, json
 from types import SimpleNamespace
-from pychartjs import BaseChart, ChartType, Color
 
 
 bp = Blueprint('games', __name__)
@@ -18,17 +16,12 @@ def display_games():
 @bp.route('/platform')
 def invest_console():
     response = requests.get('https://api.dccresource.com/api/games')
-    games = json.loads(response.content)
-
-    class BarChart(BaseChart):
-
-        type = ChartType.Bar
-
-        class Data:
-            label = games['platform']
-            data = games['globalSales']
-            backgroundColor = Color.Blue
-    return render_template('games/platform.html')
+    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+    total = 0
+    for game in games:
+        if game.platform == "DS":
+            total += game.globalSales
+    return render_template('games/platform.html', total=total)
 
 
 @bp.route('/games/search', methods=('GET', 'POST'))
