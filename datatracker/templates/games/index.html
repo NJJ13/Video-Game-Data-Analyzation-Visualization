@@ -4,11 +4,7 @@
 Welcome to Our Search
 {% endblock %}
 
-{% block header %}
-{% endblock %}
-
 {% block content %}
-
  <form method="post">
     <label for="title">Enter a Title</label>
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
@@ -35,5 +31,4 @@ Welcome to Our Search
        {% endfor %}
 </table>
 {% endif %}
-
 {% endblock %}

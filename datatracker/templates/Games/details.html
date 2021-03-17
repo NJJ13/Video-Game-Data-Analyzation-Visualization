@@ -2,21 +2,23 @@
 
 {% block content %}
         <div>
-            <h1>Name: {{ found_game.name }}</h1>
+            <p>Name: {{ found_game.name }}</p>
         </div>
         <div>
-            <h1>Rank: {{ found_game.rank }}</h1>
+            <p>Rank: {{ found_game.rank }}</p>
         </div>
         <div>
-            <h1>Platform: {{ found_game.platform }}</h1>
+            <p>Platform: {{ found_game.platform }}</p>
         </div>
         <div>
-            <h1>Year: {{ found_game.year }}</h1>
+            <p>Year: {{ found_game.year }}</p>
         </div>
         <div>
-            <h1>Publisher: {{ found_game.publisher }}</h1>
+            <p>Publisher: {{ found_game.publisher }}</p>
         </div>
         <div>
-            <h1>Global Sales: {{ found_game.globalSales }}</h1>
+            <p>Global Sales: {{ found_game.globalSales }}</p>
         </div>
+
+<h3><a href="/games/{{ found_game.name }}">{{ found_game.name }}</a></h3>
 {% endblock %}

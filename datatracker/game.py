@@ -3,8 +3,6 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 import requests, json
 from types import SimpleNamespace
 
-from .models.game import Game
-
 bp = Blueprint('games', __name__)
 
 
@@ -26,4 +24,35 @@ def display_games():
         return render_template('games/index.html', title=search_results)
 
 
+@bp.route('/platform')
+def invest_console():
+    response = requests.get('https://api.dccresource.com/api/games')
+    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+    total = 0
+    for game in games:
+        if game.platform == "DS":
+            total += game.globalSales
+    return render_template('games/platform.html', total=total)
+
+
+
+@bp.route('/games/<id>', methods=['GET'])
+def game_details(id):
+    response = requests.get('https://api.dccresource.com/api/games')
+    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+    for game in games:
+        if game._id == id:
+            found_game = game
+    return render_template('games/details.html', found_game=found_game)
+
+
+@bp.route('/games/<name>', methods=['GET'])
+def console_breakdown(name):
+    response = requests.get('https://api.dccresource.com/api/games')
+    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+    cross_platform_game = []
+    for game in games:
+        if game.name == name:
+            cross_platform_game.append(game)
+    return render_template('games/console_breakdown.html', cross_platform_game=cross_platform_game)
 
