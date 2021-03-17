@@ -1,20 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Welcome to Our Search
-{% endblock %}
-
-{% block header %}
-{% endblock %}
-
 {% block content %}
-
- <form method="post">
-    <label for="title">Enter a Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <input type="submit" value="Submit">
-  </form>
-{% if title != null %}
 <table style = "width: 100%">
        <tr>
            <th>Name</th>
@@ -22,15 +8,25 @@ Welcome to Our Search
            <th>Publisher</th>
            <th>Genre</th>
            <th>Platform</th>
+           <th>naSales</th>
+           <th>euSales</th>
+           <th>jpSales</th>
+           <th>otherSales</th>
+           <th>globalSales</th>
        </tr>
 
-       {% for input in title %}
+       {% for input in cross_platform_game %}
        <tr>
-           <td><a href="/games/{{input['_id']}}">{{input['name']}}</a></td>
+           <td>{{input['name']}}</a></td>
            <td>{{input['year']}}</td>
            <td>{{input['publisher']}}</td>
            <td>{{input['genre']}}</td>
            <td>{{input['platform']}}</td>
+           <td>naSales</td>
+           <td>euSales</td>
+           <td>jpSales</td>
+           <td>otherSales</td>
+           <td>globalSales</td>
        </tr>
        {% endfor %}
 </table>
