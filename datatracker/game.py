@@ -26,6 +26,18 @@ def display_games():
         return render_template('games/index.html', title=search_results)
 
 
+@bp.route('/platform')
+def invest_console():
+    response = requests.get('https://api.dccresource.com/api/games')
+    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+    total = 0
+    for game in games:
+        if game.platform == "DS":
+            total += game.globalSales
+    return render_template('games/platform.html', total=total)
+
+
+
 @bp.route('/games/<id>', methods=['GET'])
 def game_details(id):
     response = requests.get('https://api.dccresource.com/api/games')

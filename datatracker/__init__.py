@@ -22,9 +22,9 @@ def create_app():
     from . import game
     app.register_blueprint(game.bp)
 
-
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
 
     return app
+
