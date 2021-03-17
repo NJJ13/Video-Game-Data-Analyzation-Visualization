@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
@@ -21,13 +22,9 @@ def create_app():
     from . import game
     app.register_blueprint(game.bp)
 
-
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-
-    from . import games
-    app.register_blueprint(games.bp)
 
     return app
 

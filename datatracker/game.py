@@ -1,9 +1,8 @@
 from flask import Blueprint, render_template
-
 import requests, json
 from types import SimpleNamespace
+from pychartjs import BaseChart, ChartType, Color
 
-from .models.game import Game
 
 bp = Blueprint('games', __name__)
 
@@ -14,3 +13,18 @@ def display_games():
     games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
     return render_template('games/index.html', games=games)
 
+
+@bp.route('/platform')
+def invest_console():
+    response = requests.get('https://api.dccresource.com/api/games')
+    games = json.loads(response.content)
+
+    class BarChart(BaseChart):
+
+        type = ChartType.Bar
+
+        class Data:
+            label = games['platform']
+            data = games['globalSales']
+            backgroundColor = Color.Blue
+    return render_template('games/platform.html')

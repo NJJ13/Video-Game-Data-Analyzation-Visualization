@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
-{% block header %}
-{% display_games() %}
+
+{% block content %}
+    {% for game in games %}
+        <div>
+            <p>Name: {{ game.name }}</p>
+        </div>
+    {% endfor %}
+
 {% endblock %}
