@@ -35,7 +35,6 @@ def invest_console():
     return render_template('games/platform.html', total=total)
 
 
-
 @bp.route('/games/<id>', methods=['GET'])
 def game_details(id):
     response = requests.get('https://api.dccresource.com/api/games')
