@@ -35,7 +35,6 @@ def invest_console():
     return render_template('games/platform.html', total=total)
 
 
-
 @bp.route('/games/<id>', methods=['GET'])
 def game_details(id):
     response = requests.get('https://api.dccresource.com/api/games')
@@ -51,8 +50,13 @@ def console_breakdown(name):
     response = requests.get('https://api.dccresource.com/api/games')
     games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
     cross_platform_game = []
+    labels = []
+    values = []
     for game in games:
         if game.name == name:
             cross_platform_game.append(game)
-    return render_template('games/console_breakdown.html', cross_platform_game=cross_platform_game)
+            labels.append(game.platform)
+            values.append(game.globalSales)
+    return render_template('games/console_breakdown.html', cross_platform_game=cross_platform_game, labels=labels,
+                           values=values)
 
