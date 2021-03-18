@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-<p> Platform: {{total}} </p>
 
 <canvas id="myChart" width="400" height="400"></canvas>
 <script>
@@ -13,10 +12,14 @@ var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [{% for item in labels %}
+                   '{{item}}',
+                {% endfor %}],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Global Sales',
+            data: [{% for item in values %}
+                    '{{item}}',
+                  {% endfor %}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
