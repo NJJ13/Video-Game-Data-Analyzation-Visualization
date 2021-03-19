@@ -8,11 +8,10 @@
            <th>Publisher</th>
            <th>Genre</th>
            <th>Platform</th>
-           <th>naSales</th>
-           <th>euSales</th>
-           <th>jpSales</th>
-           <th>otherSales</th>
-           <th>globalSales</th>
+           <th>North America Sales</th>
+           <th>Europe Sales</th>
+           <th>Japan Sales</th>
+           <th>Other Sales</th>
        </tr>
 
        {% for input in cross_platform_game %}
@@ -26,7 +25,6 @@
            <td>{{input['euSales']}}</td>
            <td>{{input['jpSales']}}</td>
            <td>{{input['otherSales']}}</td>
-           <td>{{input['globalSales']}}</td>
        </tr>
        {% endfor %}
 </table>

@@ -19,10 +19,11 @@
 {% block content %}
         <div class="div">
             <p>Name: {{ found_game.name }}</p>
-            <p>Rank: {{ found_game.rank }}</p>
+            <p>Genre: {{ found_game.genre }}</p>
             <p>Platform: {{ found_game.platform }}</p>
-            <p>Year: {{ found_game.year }}</p>
             <p>Publisher: {{ found_game.publisher }}</p>
+            <p>Year: {{ found_game.year }}</p>
+            <p>Rank: {{ found_game.rank }}</p>
             <p>Global Sales: {{ found_game.globalSales }}</p>
             <strong style="text-decoration: underline;"><a href="/game/{{ found_game.name }}">Global Console Sales</a></strong>
         </div>
