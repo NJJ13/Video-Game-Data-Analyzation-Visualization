@@ -25,15 +25,27 @@ def display_games():
 
 
 @bp.route('/platform')
-def invest_console():
+def total_sales():
     response = requests.get('https://api.dccresource.com/api/games')
     games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-    total = 0
+    consoles = []
     for game in games:
-        if game.platform == "DS":
-            total += game.globalSales
-    return render_template('games/platform.html', total=total)
+        if game.year is None:
+            continue
+        elif game.platform in consoles:
+            continue
+        elif game.year >= 2013:
+            consoles.append(game.platform)
 
+    global_sales_dict = {i: 0 for i in consoles}
+    for game in games:
+        if game.platform in global_sales_dict:
+            global_sales_dict[game.platform] += round(game.globalSales)
+
+    global_sales = list(global_sales_dict.values())
+
+    return render_template('games/platform.html', global_sales_dict=global_sales_dict, labels=consoles,
+                           values=global_sales)
 
 @bp.route('/games/<id>', methods=['GET'])
 def game_details(id):
@@ -45,15 +57,20 @@ def game_details(id):
     return render_template('games/details.html', found_game=found_game)
 
 
-@bp.route('/games/<name>', methods=['GET'])
+@bp.route('/game/<name>', methods=['GET'])
 def console_breakdown(name):
     response = requests.get('https://api.dccresource.com/api/games')
     games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
     cross_platform_game = []
+    labels = []
+    values = []
     for game in games:
         if game.name == name:
             cross_platform_game.append(game)
-    return render_template('games/console_breakdown.html', cross_platform_game=cross_platform_game)
+            labels.append(game.platform)
+            values.append(game.globalSales)
+    return render_template('games/console_breakdown.html', cross_platform_game=cross_platform_game, labels=labels,
+                           values=values)
 
 
 @bp.route('/games/chart_page2')

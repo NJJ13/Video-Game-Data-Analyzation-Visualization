@@ -16,20 +16,57 @@
        </tr>
 
        {% for input in cross_platform_game %}
-       <tr>
-           <td>{{input['name']}}</a></td>
+       <tr style = "text-align: center">
+           <td>{{input['name']}}</td>
            <td>{{input['year']}}</td>
            <td>{{input['publisher']}}</td>
            <td>{{input['genre']}}</td>
            <td>{{input['platform']}}</td>
-           <td>naSales</td>
-           <td>euSales</td>
-           <td>jpSales</td>
-           <td>otherSales</td>
-           <td>globalSales</td>
+           <td>{{input['naSales']}}</td>
+           <td>{{input['euSales']}}</td>
+           <td>{{input['jpSales']}}</td>
+           <td>{{input['otherSales']}}</td>
+           <td>{{input['globalSales']}}</td>
        </tr>
        {% endfor %}
 </table>
-{% endif %}
 
+
+<canvas id="salesPerConsole" width="50%" height="10px"></canvas>
+<script>
+var ctx = document.getElementById('salesPerConsole');
+var salesPerConsole = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+        {% for item in labels %}
+         '{{item}}',
+        {% endfor %}],
+        datasets: [{
+            label: 'Global Sales by Console',
+            data: [
+            {% for item in values %}
+            '{{item}}',
+            {% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)'
+            ],
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
 {% endblock %}
