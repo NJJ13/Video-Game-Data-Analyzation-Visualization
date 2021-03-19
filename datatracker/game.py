@@ -71,4 +71,3 @@ def console_breakdown(name):
             values.append(game.globalSales)
     return render_template('games/console_breakdown.html', cross_platform_game=cross_platform_game, labels=labels,
                            values=values)
-
