@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1 style="text-align: center">{% block title %} Global Sales  {% endblock %}</h1>
+<h1 style="text-align: center">{% block title %} Publishers with Greatest Success Based on Console  {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -16,23 +16,11 @@ var myChart = new Chart(ctx, {
                    '{{item}}',
                 {% endfor %}],
         datasets: [{
-            label: 'Best Publisher per Console',
+            label: 'Console with Highest Grossing Publisher',
             data: [{% for item in values %}
                     '{{item}}',
                   {% endfor %}],
-            backgroundColor: [
-                'rgba(0, 0, 255, 0.7)',
-                'rgba(0, 255, 0, 0.7)',
-                'rgba(55, 0, 186, 0.7)',
-                'rgba(75, 12, 92, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 59, 164, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)'
-            ]
+            backgroundColor: dynamicColors,
         }]
     },
     options: {
@@ -45,5 +33,11 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+function dynamicColors() {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+    }
 </script>
 {% endblock %}

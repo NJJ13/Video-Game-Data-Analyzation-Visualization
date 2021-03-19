@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 
-import requests, json
+import requests, json, operator
 from types import SimpleNamespace
 
 bp = Blueprint('games', __name__)
@@ -40,7 +40,7 @@ def total_sales():
     global_sales_dict = {i: 0 for i in consoles}
     for game in games:
         if game.platform in global_sales_dict:
-            global_sales_dict[game.platform] += round(game.globalSales)
+            global_sales_dict[game.platform] += round(game.globalSales, 2)
 
     global_sales = list(global_sales_dict.values())
 
@@ -97,3 +97,49 @@ def global_sales_per_genre(games, genres):
             genre_total_sales_dict[game['genre']] += game['globalSales']
     genre_total_sales = list(genre_total_sales_dict.values())
     return genre_total_sales
+
+@bp.route('/publisher', methods=['GET'])
+def successful_publishers():
+    response = requests.get('https://api.dccresource.com/api/games')
+    games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+    publishers = get_publishers(games)
+    consoles = get_consoles(games)
+    console_publisher_success_dict = {}
+    for console in consoles:
+        publisher_dict = {i: 0 for i in publishers}
+        for game in games:
+            if game.platform == console:
+                  publisher_dict[game.publisher] += game.globalSales
+
+        most_sales = max(publisher_dict.values())
+        publisher = get_key(publisher_dict, most_sales)
+        console_publisher_success_dict[console + "-" + publisher] = round(most_sales, 2)
+    console_and_publisher = list(console_publisher_success_dict.keys())
+    console_and_publisher_sales = list(console_publisher_success_dict.values())
+
+    return render_template('games/best_publishers_by_console.html', labels=console_and_publisher,
+                           values=console_and_publisher_sales)
+
+
+def get_publishers(games):
+    publishers = []
+    for game in games:
+        if game.publisher not in publishers:
+            publishers.append(game.publisher)
+
+    return publishers
+
+
+def get_consoles(games):
+    consoles = []
+    for game in games:
+        if game.platform not in consoles:
+            consoles.append(game.platform)
+
+    return consoles
+
+def get_key(dictionary, val):
+    for key, value in dictionary.items():
+        if val == value:
+            return key
+
