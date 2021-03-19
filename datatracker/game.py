@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 
-import requests, json, operator
+import requests, json, operator, math
 from types import SimpleNamespace
 
 bp = Blueprint('games', __name__)
@@ -40,7 +40,7 @@ def total_sales():
     global_sales_dict = {i: 0 for i in consoles}
     for game in games:
         if game.platform in global_sales_dict:
-            global_sales_dict[game.platform] += round(game.globalSales, 2)
+            global_sales_dict[game.platform] = round(global_sales_dict[game.platform], 2) + round(game.globalSales, 2)
 
     global_sales = list(global_sales_dict.values())
 
@@ -48,7 +48,7 @@ def total_sales():
                            values=global_sales)
 
 
-@bp.route('/games/<id>', methods=['GET'])
+@bp.route('/gameID/<id>', methods=['GET'])
 def game_details(id):
     response = requests.get('https://api.dccresource.com/api/games')
     games = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
@@ -74,7 +74,7 @@ def console_breakdown(name):
                            values=values)
 
 
-@bp.route('/games/chart_page2')
+@bp.route('/genre')
 def genre_stats():
     response = requests.get('https://api.dccresource.com/api/games')
     games = response.json()
@@ -95,7 +95,7 @@ def global_sales_per_genre(games, genres):
     genre_total_sales_dict = {i: 0 for i in genres}
     for game in games:
         if game['genre'] in genre_total_sales_dict:
-            genre_total_sales_dict[game['genre']] += game['globalSales']
+            genre_total_sales_dict[game['genre']] = round(genre_total_sales_dict[game['genre']] ,2) + round(game['globalSales'],2)
     genre_total_sales = list(genre_total_sales_dict.values())
     return genre_total_sales
 

@@ -24,13 +24,14 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
+     title:{
+                display: true,
+                text: 'Most Successful Publishers (Console-Publisher)',
+                fontSize: 20, fontColor: 'white'
+            },
+            legend:{
+                display: false
+            }
     }
 });
 function dynamicColors() {
