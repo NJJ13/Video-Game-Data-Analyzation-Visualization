@@ -57,7 +57,7 @@ def console_breakdown(name):
 
 
 @bp.route('/games/chart_page2')
-def plot_game_stats():
+def genre_stats():
     response = requests.get('https://api.dccresource.com/api/games')
     games = response.json()
     genres = genres_list(games)
