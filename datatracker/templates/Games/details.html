@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <div>
+        <div style="color: white">
             <p>Name: {{ found_game.name }}</p>
         </div>
-        <div>
+        <div style="color: white">
             <p>Rank: {{ found_game.rank }}</p>
         </div>
-        <div>
+        <div style="color: white">
             <p>Platform: {{ found_game.platform }}</p>
         </div>
-        <div>
+        <div style="color: white">
             <p>Year: {{ found_game.year }}</p>
         </div>
-        <div>
+        <div style="color: white">
             <p>Publisher: {{ found_game.publisher }}</p>
         </div>
-        <div>
+        <div style="color: white">
             <p>Global Sales: {{ found_game.globalSales }}</p>
         </div>
 
-<h3><a href="/game/{{ found_game.name }}">Global Console Sales</a></h3>
+<strong><a href="/game/{{ found_game.name }}">Global Console Sales</a></strong>
 {% endblock %}

@@ -40,12 +40,13 @@ def total_sales():
     global_sales_dict = {i: 0 for i in consoles}
     for game in games:
         if game.platform in global_sales_dict:
-            global_sales_dict[game.platform] += round(game.globalSales)
+            global_sales_dict[game.platform] += round(game.globalSales, 2)
 
     global_sales = list(global_sales_dict.values())
 
     return render_template('games/platform.html', global_sales_dict=global_sales_dict, labels=consoles,
                            values=global_sales)
+
 
 @bp.route('/games/<id>', methods=['GET'])
 def game_details(id):
