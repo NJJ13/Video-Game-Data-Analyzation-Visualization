@@ -47,6 +47,7 @@ def total_sales():
     return render_template('games/platform.html', global_sales_dict=global_sales_dict, labels=consoles,
                            values=global_sales)
 
+
 @bp.route('/games/<id>', methods=['GET'])
 def game_details(id):
     response = requests.get('https://api.dccresource.com/api/games')
