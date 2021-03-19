@@ -1,24 +1,29 @@
+<head>
+    <style>
+           .div{
+              position: relative;
+              color: white;
+              margin: auto;
+              width: 50%;
+              border: 3px solid green;
+              padding: 10px;
+           }
+    </style>
+</head>
 {% extends 'base.html' %}
 
-{% block content %}
-        <div style="color: white">
-            <p>Name: {{ found_game.name }}</p>
-        </div>
-        <div style="color: white">
-            <p>Rank: {{ found_game.rank }}</p>
-        </div>
-        <div style="color: white">
-            <p>Platform: {{ found_game.platform }}</p>
-        </div>
-        <div style="color: white">
-            <p>Year: {{ found_game.year }}</p>
-        </div>
-        <div style="color: white">
-            <p>Publisher: {{ found_game.publisher }}</p>
-        </div>
-        <div style="color: white">
-            <p>Global Sales: {{ found_game.globalSales }}</p>
-        </div>
+{% block header %}
+<h1 style="text-align: center; color: white">{% block title %} Game Details {% endblock %}</h1>
+{% endblock %}
 
-<strong><a href="/game/{{ found_game.name }}">Global Console Sales</a></strong>
+{% block content %}
+        <div class="div">
+            <p>Name: {{ found_game.name }}</p>
+            <p>Rank: {{ found_game.rank }}</p>
+            <p>Platform: {{ found_game.platform }}</p>
+            <p>Year: {{ found_game.year }}</p>
+            <p>Publisher: {{ found_game.publisher }}</p>
+            <p>Global Sales: {{ found_game.globalSales }}</p>
+            <strong style="text-decoration: underline;"><a href="/game/{{ found_game.name }}">Global Console Sales</a></strong>
+        </div>
 {% endblock %}
