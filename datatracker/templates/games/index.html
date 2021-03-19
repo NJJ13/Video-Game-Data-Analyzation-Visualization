@@ -1,3 +1,14 @@
+<head>
+    <style>
+        body {
+           background-image: url("static/images/Video-Games.jpg");
+           background-repeat: no-repeat;
+           background-attachment: fixed;
+           background-size: 75% 75%;
+           background-position: center;
+           }
+    </style>
+</head>
 {% extends 'base.html' %}
 
 {% block title %}
@@ -5,12 +16,13 @@ Welcome to Our Search
 {% endblock %}
 
 {% block header %}
+<h2 style="text-align: center"> Search Games </h2>
 {% endblock %}
 
 {% block content %}
 
  <form method="post">
-    <label for="title">Enter a Title</label>
+    <label for="title" style="color: white">Enter a Title</label>
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
     <input type="submit" value="Submit">
   </form>

@@ -1,7 +1,18 @@
+<head>
+    <style>
+        body {
+           background-image: url("static/images/Gaming-PC.jpg");
+           background-repeat: no-repeat;
+           background-attachment: fixed;
+           background-size: 95% 75%;
+           background-position: center;
+           }
+    </style>
+</head>
 {% extends 'base.html' %}
 
 {% block header %}
-<h1 style="text-align: center">{% block title %} Global Sales  {% endblock %}</h1>
+<h1 style="text-align: center">{% block title %} Best Console to Invest in {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -42,7 +53,16 @@ var myChart = new Chart(ctx, {
                     beginAtZero: true
                 }
             }]
-        }
+        },
+        title:{
+                display: true,
+                text: 'Copies Sold',
+                fontSize: 25,
+                fontColor: 'white'
+            },
+            legend:{
+                display: false
+            }
     }
 });
 </script>

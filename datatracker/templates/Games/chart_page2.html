@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% block header %}
+<h1 style="text-align: center">{% block title %} Genre Sales  {% endblock %}</h1>
+{% endblock %}
+
 {% block content %}
-
-
 <canvas id="myChart"></canvas>
 <script>
     let myChart = document.getElementById('myChart').getContext('2d');
