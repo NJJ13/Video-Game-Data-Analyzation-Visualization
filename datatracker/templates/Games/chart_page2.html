@@ -1,1 +1,42 @@
 {% extends 'base.html' %}
+
+{% block content %}
+
+
+<canvas id="myChart"></canvas>
+<script>
+    let myChart = document.getElementById('myChart').getContext('2d');
+    let salesForGame = new Chart(myChart,{
+        type: 'bar',
+        data:{
+            labels: [
+            {% for item in labels %}
+            '{{item}}',
+            {% endfor %}],
+            datasets:[
+            {
+               label: 'Genres',
+               data: [
+               {% for value in data %}
+               '{{value}}',
+               {% endfor %}],
+               backgroundColor: ['#99001A', '#99004D', '#99007F', '#7F0099', '#7F0099', '#1A0099', '#001999', '#004D99',
+               '#008099', '#009980', '#00994D', '#009919'],
+               hoverBackgroundColor: ['#FF1940', '#FF198C', '#FF19D9', '#D919FF', '#8C19FF', '#4019FF', '#1940FF',
+               '#198CFF', '#19D9FF', '#19FFD9', '#19FF8C', '#19FF40']
+            }],
+        },
+        options:{
+            title:{
+                display: true,
+                text: 'Genre Popularity',
+                fontSize: 25
+            },
+            legend:{
+                display: false
+            }
+        }
+    });
+</script>
+{% endblock %}
+

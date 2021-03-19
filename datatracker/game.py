@@ -55,3 +55,28 @@ def console_breakdown(name):
             cross_platform_game.append(game)
     return render_template('games/console_breakdown.html', cross_platform_game=cross_platform_game)
 
+
+@bp.route('/games/chart_page2')
+def plot_game_stats():
+    response = requests.get('https://api.dccresource.com/api/games')
+    games = response.json()
+    genres = genres_list(games)
+    genre_total_sales = global_sales_per_genre(games, genres)
+    return render_template('/games/chart_page2.html', data=genre_total_sales, labels=genres)
+
+
+def genres_list(games):
+    genres = []
+    for game in games:
+        if game['genre'] not in genres:
+            genres.append(game['genre'])
+    return genres
+
+
+def global_sales_per_genre(games, genres):
+    genre_total_sales_dict = {i: 0 for i in genres}
+    for game in games:
+        if game['genre'] in genre_total_sales_dict:
+            genre_total_sales_dict[game['genre']] += game['globalSales']
+    genre_total_sales = list(genre_total_sales_dict.values())
+    return genre_total_sales
